@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { PropertiesService } from "../services/properties.service";
+import { createPropertySchema } from "../schemas/property.schema";
+import { ZodError } from "zod";
 
 export class PropertiesController {
   private service: PropertiesService;
@@ -41,4 +43,27 @@ export class PropertiesController {
       next(error);
     }
   }
+
+  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const validatedData = createPropertySchema.parse(req.body);
+      const property = await this.service.createProperty(validatedData);
+
+      res.status(201).json({
+        success: true,
+        data: property,
+      });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        res.status(400).json({
+          success: false,
+          error: "Validation failed",
+          details: error.issues,
+        });
+        return;
+      }
+      next(error);
+    }
+  }
+
 }
