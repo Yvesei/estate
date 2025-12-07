@@ -29,4 +29,13 @@ export class PropertiesRepository {
     mockProperties[index] = { ...mockProperties[index], ...data };
     return mockProperties[index];
   }
+
+  async deleteProperty( id: string ): Promise<boolean> {
+    const index = mockProperties.findIndex((p) => p.id === id);
+    
+    if (index === -1) return false;
+    mockProperties.splice(index, 1);
+
+    return true;
+  }
 }

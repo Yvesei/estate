@@ -97,4 +97,26 @@ export class PropertiesController {
       next(error);
     }
   }
+
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const deleted = await this.service.deleteProperty(id);
+
+      if (!deleted) {
+        res.status(404).json({
+          success: false,
+          error: "Property not found",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Property deleted successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

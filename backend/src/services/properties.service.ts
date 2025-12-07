@@ -27,4 +27,8 @@ export class PropertiesService {
   ): Promise<Property | null> {
     return this.repository.updateProperty(id, data);
   }
+
+  async deleteProperty(id: string): Promise<boolean> {
+    return await this.repository.deleteProperty(id);
+  }
 }
