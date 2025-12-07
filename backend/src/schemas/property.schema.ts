@@ -15,5 +15,8 @@ export const createPropertySchema = z.object({
   surface: z.number().positive("Surface must be positive"),
 });
 
+export const updatePropertySchema = createPropertySchema.partial();
+
 export type PropertySchema = z.infer<typeof propertySchema>;
 export type CreatePropertySchema = z.infer<typeof createPropertySchema>;
+export type UpdatePropertySchema = z.infer<typeof updatePropertySchema>;

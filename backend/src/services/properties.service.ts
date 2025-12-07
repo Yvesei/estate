@@ -1,6 +1,6 @@
 import { PropertiesRepository } from "../repositories/properties.repository";
 import { Property } from "../types/property.types";
-import { CreatePropertySchema } from "../schemas/property.schema";
+import { CreatePropertySchema, UpdatePropertySchema } from "../schemas/property.schema";
 
 export class PropertiesService {
   private repository: PropertiesRepository;
@@ -19,5 +19,12 @@ export class PropertiesService {
 
   async createProperty(data: CreatePropertySchema): Promise<Property> {
     return this.repository.createProperty(data);
+  }
+
+  async updateProperty(
+    id: string,
+    data: UpdatePropertySchema
+  ): Promise<Property | null> {
+    return this.repository.updateProperty(id, data);
   }
 }

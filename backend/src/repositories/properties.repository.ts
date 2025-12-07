@@ -18,4 +18,15 @@ export class PropertiesRepository {
     mockProperties.push(newProperty);
     return newProperty;
   }
+
+  async updateProperty(
+    id: string,
+    data: Partial<Omit<Property, "id">>
+  ): Promise<Property | null> {
+    const index = mockProperties.findIndex((p) => p.id === id);
+    if (index === -1) return null;
+
+    mockProperties[index] = { ...mockProperties[index], ...data };
+    return mockProperties[index];
+  }
 }

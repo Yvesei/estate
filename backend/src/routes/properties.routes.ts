@@ -10,4 +10,6 @@ router.get("/:id", (req, res, next) => controller.getById(req, res, next));
 
 router.post("/", (req, res, next) => controller.create(req, res, next));
 
+router.put("/:id", (req, res, next) => controller.update(req, res, next));
+
 export default router;

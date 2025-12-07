@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PropertiesService } from "../services/properties.service";
-import { createPropertySchema } from "../schemas/property.schema";
+import { createPropertySchema, updatePropertySchema } from "../schemas/property.schema";
 import { ZodError } from "zod";
 
 export class PropertiesController {
@@ -66,4 +66,35 @@ export class PropertiesController {
     }
   }
 
+  async update(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const validatedData = updatePropertySchema.parse(req.body);
+
+      const property = await this.service.updateProperty(id, validatedData);
+
+      if (!property) {
+        res.status(404).json({
+          success: false,
+          error: "Property not found",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        data: property,
+      });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        res.status(400).json({
+          success: false,
+          error: "Validation failed",
+          details: error.issues,
+        });
+        return;
+      }
+      next(error);
+    }
+  }
 }
