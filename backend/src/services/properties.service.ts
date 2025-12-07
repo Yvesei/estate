@@ -11,4 +11,8 @@ export class PropertiesService {
   async getAllProperties(): Promise<Property[]> {
     return this.repository.getAllProperties();
   }
+
+  async getPropertyById(id: string): Promise<Property | null> {
+    return this.repository.getPropertyById(id);
+  }
 }

@@ -19,4 +19,26 @@ export class PropertiesController {
       next(error);
     }
   }
+
+  async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const property = await this.service.getPropertyById(id);
+
+      if (!property) {
+        res.status(404).json({
+          success: false,
+          error: "not found",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        data: property,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
