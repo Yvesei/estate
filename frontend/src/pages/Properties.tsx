@@ -23,17 +23,17 @@ const Properties = () => {
   };
 
   return (
-    <div className="p-6">
-      <div className="flex flex-wrap gap-6 mt-6">
+    <div className="p-6 flex flex-col items-center">
+        <div className="flex flex-wrap justify-center gap-6 mt-6">
         {properties.map((p) => (
-          <PropertyCard
+            <PropertyCard
             key={p.id}
             property={p}
             onView={handleView}
             onEdit={handleEdit}
-          />
+            />
         ))}
-      </div>
+        </div>
     </div>
   );
 };
