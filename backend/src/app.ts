@@ -5,6 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/property", propertiesRoutes);
+app.use("/properties", propertiesRoutes);
 
 export default app;
