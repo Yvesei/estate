@@ -1,12 +1,27 @@
 import apiClient from "../services/apiClient";
 import { Property } from "../types/property.types";
 
-interface ApiResponse {
+interface ApiListResponse {
   success: boolean;
   data: Property[];
 }
 
+interface ApiSingleResponse {
+  success: boolean;
+  data: Property;
+}
+
 export const getProperties = async (): Promise<Property[]> => {
-  const response = await apiClient.get<ApiResponse>("/properties");
+  const response = await apiClient.get<ApiListResponse>("/properties");
+  return response.data.data;
+};
+
+export const getPropertyById = async (id: string): Promise<Property> => {
+  const response = await apiClient.get<ApiSingleResponse>(`/properties/${id}`);
+  return response.data.data;
+};
+
+export const updateProperty = async (id: string, property: Property): Promise<Property> => {
+  const response = await apiClient.put<ApiSingleResponse>(`/properties/${id}`, property);
   return response.data.data;
 };
