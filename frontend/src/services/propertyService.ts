@@ -30,3 +30,8 @@ export const createProperty = async (property: Omit<Property, "id">): Promise<Pr
   const response = await apiClient.post<ApiSingleResponse>("/properties", property);
   return response.data.data;
 };
+
+export const deleteProperty = async (id: string): Promise<boolean> => {
+  const response = await apiClient.delete<ApiSingleResponse>(`/properties/${id}`);
+  return response.data.success;
+};

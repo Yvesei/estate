@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPropertyById } from "../services/propertyService";
+import { getPropertyById, deleteProperty } from "../services/propertyService";
 import { Property } from "../types/property.types";
-import { MapPinHouse, Pencil } from "lucide-react";
+import { MapPinHouse, Pencil, Trash } from "lucide-react";
 
 const PropertyDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [property, setProperty] = useState<Property | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const [deleted, setDeleted] = useState<boolean>(false);
   useEffect(() => {
     const fetchProperty = async () => {
       try {
@@ -28,6 +28,23 @@ const PropertyDetail = () => {
 
   const handleEdit = () => {
     navigate(`/property/${id}`);
+  };
+  
+  const handleDelete = async () => {
+    try {
+      if (id) {
+        const deleted = await deleteProperty(id);
+        if (deleted) {
+          setDeleted(true);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        }
+      }
+    } catch (err: any) {
+      setError("Failed to delete property.");
+      console.error("Error deleting property:", err);
+    } 
   };
 
   if (error) {
@@ -49,7 +66,7 @@ const PropertyDetail = () => {
   return (
   <div className="min-h-screen bg-gray-50">
     <div className="flex flex-col flex-col lg:flex-row p-6 max-w-7xl mx-auto pt-12 items-start justify-center">
-      
+
       {/* left side */}
       <div className="flex flex-col mb-6 lg:mb-0 mr-0 lg:mr-6 min-w-[38rem]">
         <div className="h-96 w-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center text-8xl mb-6 shadow-sm hover:opacity-90 transition-opacity">
@@ -61,7 +78,15 @@ const PropertyDetail = () => {
       </div>
 
       {/* details card */}
-      <div className="flex justify-center min-w-[24rem]">
+      <div className="flex flex-col justify-center min-w-[24rem]">
+        
+        {/* Success Message */}
+        {deleted && (
+          <div className="mb-4 p-4 bg-green-300 border border-green-400 text-black-700 rounded-lg">
+            Propriété supprimée !
+          </div>
+        )}
+
         <div className="w-full max-w-sm h-96 bg-white p-6 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-50 transition-shadow">
           
           <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-6">
@@ -91,16 +116,26 @@ const PropertyDetail = () => {
             <MapPinHouse size={24} className="pr-2" />
             {property.city}
           </p>
+        
+        
+          <div className="flex flex-row gap-1 mt-[5rem]">
+            <button
+              onClick={handleEdit}
+              className="flex-2 w-full inline-flex items-center justify-center text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 transition-colors "
+            >
+              <Pencil size={18} className="pr-2" />
+              Modifier
+            </button>
+            <button
+              onClick={handleDelete}
+              className="flex-1 w-full inline-flex items-center justify-center text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 transition-colors "
+            >
+              <Trash size={18} className="pr-2"  />
+              Delete
+            </button>
 
-          <button
-            onClick={handleEdit}
-            className="w-full inline-flex items-center justify-center text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 transition-colors mt-14"
-          >
-            <Pencil size={18} className="pr-2" />
-            Modifier
-          </button>
-
-        </div>
+          </div>
+      </div>
       </div>
 
     </div>
