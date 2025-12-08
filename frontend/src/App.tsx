@@ -1,12 +1,15 @@
-import React from 'react';
-import './App.css';
-import Properties from './pages/Properties';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Properties from "./pages/Properties";
+import PropertyFormPage from "./pages/PropertyFormPage";
 
 function App() {
   return (
-    <div className="App">
-     <Properties />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Properties />} />
+        <Route path="/property/:id" element={<PropertyFormPage />} />
+      </Routes>
+    </Router>
   );
 }
 
