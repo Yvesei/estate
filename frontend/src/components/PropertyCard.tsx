@@ -1,14 +1,22 @@
 import React from "react";
 import { Property } from "../types/property.types";
+import { useNavigate } from "react-router-dom";
 import { MapPinHouse, Pencil } from "lucide-react";
 
 interface Props {
   property: Property;
   onView: (id: string) => void;
-  onEdit: (id: string) => void;
 }
 
-const PropertyCard = ({ property, onView, onEdit }: Props) => {
+
+const PropertyCard = ({ property, onView }: Props) => {
+  const navigate = useNavigate();
+  
+  const handleEdit = () => {
+    navigate(`/property/${property.id}`);
+  };
+
+
   return (
     <div className="w-full bg-white block max-w-sm p-6 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-50 transition-shadow"
     onClick={() => onView(property.id)}>
@@ -49,7 +57,7 @@ const PropertyCard = ({ property, onView, onEdit }: Props) => {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            onEdit(property.id);
+            handleEdit()
           }}
           className="flex-1 inline-flex items-center justify-center text-gray-700 bg-gray-100 box-border border border-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:ring-4 focus:ring-gray-300 font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none transition-colors"
         >

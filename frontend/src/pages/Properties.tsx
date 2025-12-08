@@ -18,10 +18,6 @@ const Properties = () => {
     console.log("View", id);
   };
 
-  const handleEdit = (id: string) => {
-    console.log("Edit", id);
-  };
-
   return (
     <div className="p-6 flex flex-col items-center">
         <div className="flex flex-wrap justify-center gap-6 mt-6">
@@ -30,7 +26,6 @@ const Properties = () => {
             key={p.id}
             property={p}
             onView={handleView}
-            onEdit={handleEdit}
             />
         ))}
         </div>
