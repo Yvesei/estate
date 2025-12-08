@@ -22,6 +22,12 @@ const Properties = () => {
 
   return (
     <div className="p-6 flex flex-col items-center">
+        <button
+          onClick={() => navigate("/property")}
+          className="flex-1 inline-flex items-center justify-center text-gray-700 bg-gray-100 box-border border border-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:ring-4 focus:ring-gray-300 font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none transition-colors"
+        >
+          Creér une nouvelle propriété
+        </button>
         <div className="flex flex-wrap justify-center gap-6 mt-6">
         {properties.map((p) => (
             <PropertyCard

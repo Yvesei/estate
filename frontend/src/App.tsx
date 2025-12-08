@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Properties />} />
         <Route path="/property/details/:id" element={<PropertyDetail />} />
-        <Route path="/property/:id" element={<PropertyFormPage />} />
+        <Route path="/property/:id?" element={<PropertyFormPage />} />
       </Routes>
     </Router>
   );

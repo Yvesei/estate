@@ -25,3 +25,8 @@ export const updateProperty = async (id: string, property: Property): Promise<Pr
   const response = await apiClient.put<ApiSingleResponse>(`/properties/${id}`, property);
   return response.data.data;
 };
+
+export const createProperty = async (property: Omit<Property, "id">): Promise<Property> => {
+  const response = await apiClient.post<ApiSingleResponse>("/properties", property);
+  return response.data.data;
+};

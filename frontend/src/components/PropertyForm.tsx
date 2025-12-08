@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Property } from "../types/property.types";
-import { updateProperty } from "../services/propertyService";
+import { updateProperty, createProperty } from "../services/propertyService";
 import { useFormHandler } from "../hooks/useFormHandler";
 
 interface Props {
@@ -14,6 +14,8 @@ const PropertyForm = ({ property }: Props) => {
   const { errors, successMessage, handleSubmit, clearFieldError } =
     useFormHandler();
 
+  const isEditMode = !!property.id;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -24,7 +26,11 @@ const PropertyForm = ({ property }: Props) => {
   };
 
   const onSubmit = async () => {
-    await updateProperty(property.id, formData);
+    if (isEditMode) {
+      await updateProperty(property.id, formData);
+    } else {
+      await createProperty(formData);
+    }
   };
 
   const onSuccess = () => {
@@ -44,7 +50,7 @@ const PropertyForm = ({ property }: Props) => {
       {/* Success Message */}
       {successMessage && (
         <div className="mb-4 p-4 bg-green-300 border border-green-400 text-black-700 rounded-lg">
-          Property updated successfully!
+          {isEditMode ? "Propriété mise à jour !" : "Propriété créée !"}
         </div>
       )}
 
@@ -91,7 +97,7 @@ const PropertyForm = ({ property }: Props) => {
 
       {/* Price Field */}
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">  Prix (€)</label>
+        <label className="block text-gray-700 font-bold mb-2">Prix (€)</label>
         <input
           type="number"
           name="price"
