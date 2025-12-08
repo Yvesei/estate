@@ -26,7 +26,7 @@ cp .env.example .env
 npm install
 npm start
 ```
-Vous peuvez modifier le fichier `.env` avec vos propres valeurs:
+Vous pouvez modifier le fichier `.env` avec vos propres valeurs:
 ```
 # where the frontend runs
 PORT=3900
