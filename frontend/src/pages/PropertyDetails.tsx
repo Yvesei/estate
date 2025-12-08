@@ -48,11 +48,11 @@ const PropertyDetail = () => {
 
   return (
   <div className="min-h-screen bg-gray-50">
-    <div className="flex flex-col lg:flex-row p-6 max-w-7xl mx-auto pt-12 items-start justify-center">
+    <div className="flex flex-col flex-col lg:flex-row p-6 max-w-7xl mx-auto pt-12 items-start justify-center">
       
       {/* left side */}
-      <div className="flex-1 flex flex-col">
-        <div className="w-full h-96 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center text-8xl mb-6 shadow-sm hover:opacity-90 transition-opacity">
+      <div className="flex flex-col mb-6 lg:mb-0 mr-0 lg:mr-6 min-w-[38rem]">
+        <div className="h-96 w-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center text-8xl mb-6 shadow-sm hover:opacity-90 transition-opacity">
           ^^
         </div>
         <p className="text-lg font-md text-gray-900">
@@ -61,7 +61,7 @@ const PropertyDetail = () => {
       </div>
 
       {/* details card */}
-      <div className="flex-1 flex justify-center">
+      <div className="flex justify-center min-w-[24rem]">
         <div className="w-full max-w-sm h-96 bg-white p-6 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-50 transition-shadow">
           
           <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-6">
