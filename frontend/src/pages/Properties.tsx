@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getProperties } from "../services/propertyService";
 import { Property } from "../types/property.types";
 import PropertyCard from "../components/PropertyCard";
@@ -20,10 +20,12 @@ const Properties = () => {
     navigate(`/property/details/${id}`);
   };
 
+  const createProperty = () => navigate("/property")
+  
   return (
     <div className="p-6 flex flex-col items-center">
         <button
-          onClick={() => navigate("/property")}
+          onClick={createProperty}
           className="flex-1 inline-flex items-center justify-center text-gray-700 bg-gray-100 box-border border border-gray-300 hover:bg-gray-200 hover:text-gray-900 focus:ring-4 focus:ring-gray-300 font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none transition-colors"
         >
           Creér une nouvelle propriété
