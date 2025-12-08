@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { getProperties } from "../services/propertyService";
 import { Property } from "../types/property.types";
 import PropertyCard from "../components/PropertyCard";
+import { useNavigate } from "react-router-dom";
 
 const Properties = () => {
   const [properties, setProperties] = useState<Property[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -15,7 +17,7 @@ const Properties = () => {
   }, []);
 
   const handleView = (id: string) => {
-    console.log("View", id);
+    navigate(`/property/details/${id}`);
   };
 
   return (
