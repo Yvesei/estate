@@ -4,4 +4,5 @@ export interface Property {
   city: string;
   price: number;
   surface: number;
+  description?: string;
 }

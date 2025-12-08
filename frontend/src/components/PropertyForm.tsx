@@ -16,7 +16,7 @@ const PropertyForm = ({ property }: Props) => {
 
   const isEditMode = !!property.id;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -127,6 +127,18 @@ const PropertyForm = ({ property }: Props) => {
           }`}
         />
         {errors.surface && <p className="text-red-500 text-sm mt-1">{errors.surface}</p>}
+      </div>
+
+      {/* Description */}
+      <div className="mb-6">
+        <label className="block text-gray-700 font-bold mb-2">Description</label>
+        <textarea
+          name="description"
+          value={formData.description || ""}
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
+        />
+        {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
       </div>
 
       {/* Buttons */}

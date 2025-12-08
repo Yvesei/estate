@@ -6,6 +6,7 @@ export const propertySchema = z.object({
   city: z.string(),
   price: z.number().positive(),
   surface: z.number().positive(),
+  description : z.string(),
 });
 
 export const createPropertySchema = z.object({
@@ -13,6 +14,7 @@ export const createPropertySchema = z.object({
   city: z.string().min(1, "City is required"),
   price: z.number().positive("Price must be positive"),
   surface: z.number().positive("Surface must be positive"),
+  description : z.string().min(1, "Description is required"),
 });
 
 export const updatePropertySchema = createPropertySchema.partial();

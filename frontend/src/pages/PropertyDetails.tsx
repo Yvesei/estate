@@ -55,6 +55,9 @@ const PropertyDetail = () => {
         <div className="w-full h-96 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center text-8xl mb-6 shadow-sm hover:opacity-90 transition-opacity">
           ^^
         </div>
+        <p className="text-lg font-md text-gray-900">
+                {property.description?.toLocaleString()}
+        </p>
       </div>
 
       {/* details card */}
